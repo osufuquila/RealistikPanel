@@ -57,10 +57,6 @@
         <br>
         <span style="color: #eb4034;">They were banned {{ UserData["BanedAgo"] }}</span>
         {% endif %}
-        {% if UserData["IsFrozen"] %}
-        <br>
-        <span style="color: #eb4034;">They are currently frozen. They will be autorestricted {{ UserData["FreezeDate"] }} if they do not submit a liveplay.</span>
-        {% endif %}
     </div>
     <div class="card-footer">
         RealistikPanel
@@ -172,9 +168,9 @@
 
 <div class= "card">
     <div class="card-header">
-        <img alt="image" src="https://a.ussr.pl/{{ log["from_id"] }}" class="rounded-circle mr-1" style="width:100%; max-width:30px; max-height:30px;">
+        <img alt="image" src="https://a.fuquila.net/{{ log["from_id"] }}" class="rounded-circle mr-1" style="width:100%; max-width:30px; max-height:30px;">
         <h4>{{ log["from_name"] }}</h4> to 
-        <img alt="image" src="https://a.ussr.pl/{{ log["to_id"] }}" class="rounded-circle mr-1" style="width:100%; max-width:30px; max-height:30px;margin-left: 10px;">
+        <img alt="image" src="https://a.fuquila.net/{{ log["to_id"] }}" class="rounded-circle mr-1" style="width:100%; max-width:30px; max-height:30px;margin-left: 10px;">
         <h4>{{ log["to_name"] }}</h4> for {{ log["summary"] }} 
     </div>
     <div class="card-body">
@@ -233,18 +229,7 @@
             <a href="/actions/hwid/{{ UserData['Id'] }}" class="btn btn-danger" id="hwid">Clear HWID</a>
             <a href="/action/confirm/delete/{{ UserData['Id'] }}" class="btn btn-danger", id="delete">Delete Account</a>
             <a href="/actions/kick/{{ UserData['Id'] }}" class="btn btn-warning" id="kick">Kick User</a>
-            {% if config["HasRelax"] or config["HasAutopilot"] %}
-            <a href="/actions/wipe/{{ UserData['Id'] }}" class="btn btn-danger" id="wipe">Full Wipe</a>
-            <a href="/actions/wipeva/{{ UserData['Id'] }}" class="btn btn-danger" id="wipe">Wipe Vanilla</a>
-            {% else %}
-            <a href="/actions/wipe/{{ UserData['Id'] }}" class="btn btn-danger" id="wipe">Wipe</a>
-            {% endif %}
-            {% if config["HasRelax"] %}
-            <a href="/actions/wiperx/{{ UserData['Id'] }}" class="btn btn-danger" id="wipe">Wipe Relax</a>
-            {% endif %}
-            {% if config["HasAutopilot"] %}
-            <a href="/actions/wipeap/{{ UserData['Id'] }}" class="btn btn-danger" id="wipe">Wipe Autopilot</a>
-            {% endif %}
+            <a href="/actions/wipe" class="btn btn-danger" id="wipe">Wipe</a>
         </div>
     </div>
     <div class="card-footer">

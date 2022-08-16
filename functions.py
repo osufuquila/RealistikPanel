@@ -1043,21 +1043,18 @@ def DeleteUserComments(AccId):
     mycursor.execute("DELETE FROM user_comments WHERE op = %s", (AccId,))
     mydb.commit()
 
-def WipeAccount(AccId):
+def WipeAccount(AccId, mode):
     """Wipes the account with the given id."""
     r.publish("peppy:disconnect", json.dumps({ #lets the user know what is up
         "userID" : AccId,
         "reason" : "Your account has been wiped! F"
     }))
-    if UserConfig["HasRelax"]:
-        mycursor.execute("DELETE FROM scores_relax WHERE userid = %s", (AccId,))
-    if UserConfig["HasAutopilot"]:
-        mycursor.execute("DELETE FROM scores_ap WHERE userid = %s", (AccId,))
-    WipeVanilla(AccId)
-    if UserConfig["HasRelax"]:
+    
+    if mode in ("vn", "both"):
+        WipeVanilla(AccId)
+    
+    if mode in ("rx", "both"):
         WipeRelax(AccId)
-    if UserConfig["HasAutopilot"]:
-        WipeAutopilot(AccId)
 
 def WipeVanilla(AccId):
     """Wiped vanilla scores for user."""
@@ -1913,6 +1910,11 @@ def ChangePWForm(form, session): #this function may be unnecessary but ehh
     ChangePassword(int(form["accid"]), form["newpass"])
     User = GetUser(form["accid"])
     RAPLog(session["AccountId"], f"has changed the password of {User['Username']} ({form['accid']})")
+
+def WipeUserForm(form, session):
+    WipeAccount(form["accid"], form["mode"])
+    User = GetUser(form["accid"])
+    RAPLog(session["AccountId"], f"has wiped the user {User['Username']} for {form['reason']}")
 
 def GiveSupporterForm(form):
     """Handles the give supporter form/POST request."""

@@ -189,17 +189,6 @@ def Logs(page):
     else:
          return NoPerm(session, request.path)
 
-@app.route("/action/confirm/delete/<id>")
-def ConfirmDelete(id):
-    """Confirms deletion of acc so accidents dont happen"""
-    #i almost deleted my own acc lmao
-    #me forgetting to commit changes saved me
-    if HasPrivilege(session["AccountId"], 6):
-        AccountToBeDeleted = GetUser(id)
-        return render_template("confirm.html", data=DashData(), session=session, title="Confirmation Required", config=UserConfig, action=f"delete the user {AccountToBeDeleted['Username']}", yeslink=f"/actions/delete/{id}", backlink=f"/user/edit/{id}")
-    else:
-         return NoPerm(session, request.path)
-
 @app.route("/user/iplookup/<ip>")
 def IPUsers(ip):
     if HasPrivilege(session["AccountId"], 16):
@@ -437,72 +426,16 @@ def BanchoStatus():
         })
 
 #actions
-@app.route("/actions/comment/profile/<AccountID>")
-def DeleteCommentProfile(AccountID: int):
-    """Wipe all comments made on this user's profile"""
-    if HasPrivilege(session["AccountId"], 11):
-        Account = GetUser(AccountID)
-        DeleteProfileComments(AccountID)
-
-        RAPLog(session["AccountId"], f"has removed all comments made on {Account['Username']}'s profile ({AccountID})")
-        return redirect(f"/user/edit/{AccountID}")
-    else:
-      
-        return NoPerm(session, request.path)
-
-@app.route("/actions/comment/user/<AccountID>")
-def DeleteCommentUser(AccountID: int):
-    """Wipe all comments made by this user"""
-    if HasPrivilege(session["AccountId"], 11):
-        Account = GetUser(AccountID)
-        DeleteUserComments(AccountID)
-
-        RAPLog(session["AccountId"], f"has removed all comments made by {Account['Username']} ({AccountID})")
-        return redirect(f"/user/edit/{AccountID}")
-    else:
-        return NoPerm(session, request.path)
-
-@app.route("/actions/wipe/<AccountID>")
-def Wipe(AccountID: int):
+@app.route("/actions/wipe", methods=["GET", "POST"])
+def Wipe():
     """The wipe action."""
     if HasPrivilege(session["AccountId"], 11):
-        Account = GetUser(AccountID)
-        WipeAccount(AccountID)
-        RAPLog(session["AccountId"], f"has wiped the account {Account['Username']} ({AccountID})")
-        return redirect(f"/user/edit/{AccountID}")
-    else:
-        return NoPerm(session, request.path)
-
-@app.route("/actions/wipeap/<AccountID>")
-def WipeAPRoute(AccountID: int):
-    """The wipe action."""
-    if HasPrivilege(session["AccountId"], 11):
-        Account = GetUser(AccountID)
-        WipeAutopilot(AccountID)
-        RAPLog(session["AccountId"], f"has wiped the autopilot statistics for the account {Account['Username']} ({AccountID})")
-        return redirect(f"/user/edit/{AccountID}")
-    else:
-        return NoPerm(session, request.path)
-
-@app.route("/actions/wiperx/<AccountID>")
-def WipeRXRoute(AccountID: int):
-    """The wipe action."""
-    if HasPrivilege(session["AccountId"], 11):
-        Account = GetUser(AccountID)
-        WipeRelax(AccountID)
-        RAPLog(session["AccountId"], f"has wiped the relax statistics for the account {Account['Username']} ({AccountID})")
-        return redirect(f"/user/edit/{AccountID}")
-    else:
-        return NoPerm(session, request.path)
-
-@app.route("/actions/wipeva/<AccountID>")
-def WipeVARoute(AccountID: int):
-    """The wipe action."""
-    if HasPrivilege(session["AccountId"], 11):
-        Account = GetUser(AccountID)
-        WipeVanilla(AccountID)
-        RAPLog(session["AccountId"], f"has wiped the vanilla statistics for the account {Account['Username']} ({AccountID})")
-        return redirect(f"/user/edit/{AccountID}")
+        if request.method == "GET":
+            return render_template("wipeuser.html", data=DashData(), session=session, title="Wipe User", config=UserConfig)
+        elif request.method == "POST":
+            WipeUserForm(request.form, session)
+            Account = GetUser(request.form["accid"])
+            return render_template("wipeuser.html", data=DashData(), session=session, title="Wipe User", config=UserConfig, success=f"User {Account['Username']} has been successfully wiped!")
     else:
         return NoPerm(session, request.path)
 

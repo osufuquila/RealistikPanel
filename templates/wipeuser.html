@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        Award Donor to {{ User["Username"] }}
+    </div>
+    <div class="card-body">
+        <form action="/actions/wipe" method="post">
+            <div class="form-group">
+                <label>User ID</label>
+                <input type="text" class="form-control" name="accid" value="{{ User['Id'] }}" readonly>
+            </div>
+            <div class="form-group">
+                <label>Mode</label>
+                <select name="mode">
+                    <option value="vn">Vanilla</option>
+                    <option value="rx">Relax</option>
+                    <option value="both">Both</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Reason</label>
+                <input type="text" class="form-control" name="reason">
+            </div>
+            <button class="btn btn-warning" type="submit" name="">Wipe!</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
