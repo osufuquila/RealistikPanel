@@ -1,0 +1,97 @@
+/*
+RealistikPanel Dark Stisla
+This is an attempt to introducs dark theme
+into Stisla. Being pretty inexperianced in
+css, dont expect this to be good.
+- RealistikDash 
+- 2023 update: lenforiee rework.
+*/
+
+* {
+    scrollbar-color: #454a4d #202324;
+}
+
+body {
+    background-image: linear-gradient(rgba(17, 18, 19, .90), rgba(17, 18, 19, .90)), url('/static/img/login-bg.jpeg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: rgb(226, 232, 240);
+}
+
+.section .section-title {
+    color: rgb(226, 232, 240);
+}
+
+.card, 
+.card-header,
+.article,
+.article-details,
+.table,
+.main-sidebar {
+    background-color: rgb(22, 24, 25) !important;
+}
+
+.sidebar-brand > a {
+    color: rgb(226, 232, 240) !important;
+}
+
+.main-sidebar .sidebar-menu li a:hover {
+    background-color: #121212 !important;
+}
+
+body.sidebar-mini .main-sidebar::after {
+    background-color: rgb(22, 24, 25) !important;
+}
+
+.page-link {
+    background-color: rgb(22, 24, 25);
+}
+
+.page-item.disabled .page-link {
+    background-color: rgb(22, 24, 25);
+}
+
+.article .article-header .article-image {
+    background-color: #202020 !important;
+}
+
+tr.bg-danger {
+    background-color: #9c2e27 !important;
+}
+
+label {
+    color: #6777ef !important;
+}
+
+.form-control, .form-control[readonly], .form-control:focus {
+    background-color: rgb(47, 47, 47);
+    border-color: rgb(60, 60, 60);
+    color: rgb(226, 232, 240);
+}
+
+th, h4 {
+    color: rgb(226, 232, 240) !important;
+}
+
+.dropdown-menu {
+    border-color: currentcolor !important;
+    box-shadow: rgba(41, 58, 75, 0.15) 0px 10px 40px 0px !important;
+}
+
+.dropdown-menu {
+    color: rgb(226, 232, 240) !important;
+    list-style-image: none !important;
+    background-color: rgb(24, 26, 27) !important;
+    border-color: rgba(140, 130, 115, 0.15) !important;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: rgb(226, 232, 240) !important;
+    text-decoration-color: currentcolor !important;
+    background-color: #121212 !important;
+}
+
+.dropdown-title, .dropdown-item {
+    color: rgb(226, 232, 240);
+}

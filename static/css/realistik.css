@@ -1,35 +1,37 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+@media (max-width: 1060px) {
 
-.roboto {
-    font-family: 'Roboto', sans-serif;
+    .mobile-view {
+        display: inline-block !important;
+    }
+
+    .desktop-view {
+        display: none !important;
+    }
 }
 
-.icon {
-    margin-right: 20px;
+.mobile-view {
+    display: none;
 }
+
+.desktop-view {
+    display: inline-block;
+}
+
+.nflag {
+    max-width: 20px;
+}
+
+.user-info {
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
 .pptext {
     text-align: center;
     margin-bottom: 10px;
 }
 
-.leftrem {
-    margin-left: 1rem;
-}
-
-.rightrem {
-    margin-right: 1rem;
-}
-
-.selectize-control {
-    height: 42px;
-    padding: 11px 12px;
-    padding: 0 !important;
-}
-
-/* Flags! */
-.nflag {
-    margin-right: 5px;
-    max-width: 20px;
-    position: relative;
-    top: -2px;
+.article-cta {
+    padding-bottom: 10px
 }
